@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>CerviScan</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">CerviScan</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="top-box">
+            <div class="step-one">
+                <p>Colposcopy Image</p>
+                <div class="image-container">
+                    {% if filename %}
+                    <img src="{{ url_for('static', filename='image_uploads/' + filename) }}">
+                    {% endif %}
+                </div>
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <div class="button-wrap">
+                        <label class="button-label" for="imageUpload">Upload Colposcopy Image</label>
+                        <input type="file" name="file" id="imageUpload" accept="image/*" autocomplete="off" required>
+                    </div>
+                    <div class="button-wrap">
+                        <label class="button-label green" for="goScan">Go Scan</label>
+                        <input id="goScan" type="submit" name="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="bottom-box">
+            <div class="step-two">
+                <p>Cropped Image</p>
+                <div class="image-container">
+                    <img src="#" alt="">
+                </div>
+            </div>
+    
+            <div class="step-three">
+                <p>Gray Converted Image</p>
+                <div class="image-container">
+                    <img src="#" alt="">
+                </div>
+            </div>
+    
+            <div class="step-four">
+                <p>Segmented Image</p>
+                <div class="image-container">
+                    <img src="#" alt="">
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

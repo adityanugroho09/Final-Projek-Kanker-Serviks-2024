@@ -1,0 +1,140 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+    margin: 0;
+    /* border: 2px solid green; */
+}
+
+body {
+    /* 3. Add accessible line-height */
+    line-height: 1.5;
+    /* 4. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 5. Improve media defaults */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 6. Inherit fonts for form controls */
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* 7. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+    text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+/* 9. Create a root stacking context */
+#root, #__next {
+    isolation: isolate;
+}
+
+nav {
+    background-color: #333;
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+main {
+    width: 80%;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.bottom-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+main p {
+    font-family: "Lato", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.button-label {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    padding: 8px 12px; 
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #eb2eb9;
+    font-size: 16px;
+    color: #fff;
+}
+
+.green {
+    background-color: #4ed148;
+}
+
+#imageUpload, 
+#goScan {
+    position: absolute;
+    z-index: -1;
+    top: 6px;
+    left: 0;
+    font-size: 15px;
+    color: rgb(153,153,153);
+}
+
+.button-wrap {
+    position: relative;
+    margin-top: 10px;
+}
+
+.image-container,
+img {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+    border: 3px solid rgb(0, 0, 0);
+}
+
+.step-one,
+.step-two,
+.step-three,
+.step-four {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
