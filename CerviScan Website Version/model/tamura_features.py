@@ -2,12 +2,6 @@ import cv2
 import numpy as np
 from lbp_extraction import lbp_implementation
 
-import glob
-import os
-from tqdm import tqdm
-
-import pandas as pd
-
 def coarseness(image, kmax):
 	image = np.array(image)
 	w = image.shape[0]
@@ -132,35 +126,4 @@ def get_tamura_on(image):
     return get_tamura(image, lbp='on')
 
 def get_tamura_name():
-    return ['Coarseness', 'Contrast', 'Directionality', 'Roughness']
-
-def main():
-	# Image Folder Path
-	folder_path = "../segmented_image/Normal_multiotsuresult"
-
-	# Array Of Image
-	image_files = glob.glob(os.path.join(folder_path, '*'))
-
-	# TAMURA FEATURES RESULT
-	tamura_features_name = get_tamura_name()
-	tamura_features = []
-
-	# IMAGE NAME
-	image_name = []
-
-	for image_file in tqdm(image_files, desc="Tamura Extraction", unit="file", ncols=100):
-		filename = os.path.basename(image_file)[0:-4]
-		image_name.append(filename)
-		
-		image_features = get_tamura(image_file, 'off')
-		tamura_features.append(image_features)
-	
-	# Create Data Frame
-	df = pd.DataFrame(tamura_features, columns=tamura_features_name)
-	df.insert(0, 'Image', image_name)
-	
-	# Write CSV
-	csv_file = '../data/normal_multiotsu/tamura.csv'
-	df.to_csv(csv_file, index=False)
-
-# main()
+    return ['Coarseness', 'Contrast', 'Directionality', 'Roughness'] #4

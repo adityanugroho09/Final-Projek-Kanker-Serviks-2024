@@ -1,12 +1,6 @@
-import os
 import cv2 
 import numpy as np 
-
-import glob
 import os
-from tqdm import tqdm
-
-import pandas as pd
 
 # Fungsi untuk mendapatkan bilangan binary dari local patern
 def get_pixel(img, center, x, y): 
@@ -108,38 +102,4 @@ def get_lbp_features(path):
 	return [mean, median, std, kurtosis, skewness]
 
 def get_lbp_name():
-    return ['mean', 'median', 'std', 'kurtosis', 'skewness']
-
-def main():
-	# Image Folder Path
-	folder_path = "../segmented_image/Abnormal_multiotsuresult"
-
-	# Array Of Image
-	image_files = glob.glob(os.path.join(folder_path, '*'))
-
-	# Total number of images
-	total_images = len(image_files)
-
-	# TAMURA FEATURES RESULT
-	lbp_features_name = get_lbp_name()
-	lbp_features = []
-
-	# IMAGE NAME
-	image_name = []
-
-	for image_file in tqdm(image_files, desc="LBP Extraction", unit="file", ncols=100):
-		filename = os.path.basename(image_file)[:-4]
-		image_name.append(filename)
-		
-		image_features = get_lbp_features(image_file)
-		lbp_features.append(image_features)
-	
-	# Create Data Frame
-	df = pd.DataFrame(lbp_features, columns=lbp_features_name)
-	df.insert(0, 'caseID', image_name)
-	
-	# Write CSV
-	csv_file = '../data/abnormal_multiotsu/lbp.csv'
-	df.to_csv(csv_file, index=False)
-
-# main()
+    return ['mean', 'median', 'std', 'kurtosis', 'skewness'] #5

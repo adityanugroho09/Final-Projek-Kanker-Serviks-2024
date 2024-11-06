@@ -1,9 +1,5 @@
-import os
 import numpy as np
-import glob
 import warnings
-import pandas as pd
-from tqdm import tqdm
 from GrayRumatrix import getGrayRumatrix
 
 warnings.filterwarnings("ignore")
@@ -21,7 +17,7 @@ def get_glrlm_name():
     glrlm_degs = [['deg0'], ['deg45'], ['deg90'], ['deg135']]
     glrlm_features_name = get_glrlm_features_name(glrlm_features, glrlm_degs)
     
-    return glrlm_features_name
+    return glrlm_features_name # 44
 
 def get_glrlm(path, lbp='off'):
     
@@ -99,37 +95,3 @@ def get_glrlm(path, lbp='off'):
 
 def get_glrlm_on(path):
     return get_glrlm(path, lbp='on')
-
-def main(): 
-    # Image Folder Path
-    folder_path = "../segmented_image/Normal_multiotsuresult"
-
-    # Array Of Image
-    image_files = glob.glob(os.path.join(folder_path, '*'))
-
-    # Total number of images
-    total_images = len(image_files)
-
-    # TAMURA FEATURES RESULT
-    glrlm_features_name = get_glrlm_name()
-    glrlm_features = []
-
-    # IMAGE NAME
-    image_name = []
-
-    for image_file in tqdm(image_files, desc="GLRLM Extraction", unit="file", ncols=100):
-        filename = os.path.basename(image_file)[0:-4]
-        image_name.append(filename)
-        
-        image_features = get_glrlm(image_file, "off")
-        glrlm_features.append(image_features)
-    
-    # Create Data Frame
-    df = pd.DataFrame(glrlm_features, columns=glrlm_features_name)
-    df.insert(0, 'Image', image_name)
-    
-    # Write CSV
-    csv_file = '../data/normal_multiotsu/glrlm.csv'
-    df.to_csv(csv_file, index=False)
-
-# main()

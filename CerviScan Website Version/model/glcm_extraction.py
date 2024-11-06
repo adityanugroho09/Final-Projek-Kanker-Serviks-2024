@@ -3,11 +3,6 @@ import numpy as np
 from skimage.feature import graycomatrix, graycoprops
 from sklearn.metrics.cluster import entropy
 
-import os
-from tqdm import tqdm
-import pandas as pd
-import glob
-
 def get_glcm(image_path):
     image = cv.imread(image_path)
 
@@ -49,38 +44,4 @@ def get_glcm(image_path):
 
 def get_feature_name():
     return ['contrast', 'correlation', 'energy', 'homogeneity', 'entropy']
-
-def main(): 
-    # Image Folder Path
-    folder_path = "../segmented_image/fcm_segmentation"
-
-    # Array Of Image
-    image_files = glob.glob(os.path.join(folder_path, '*'))
-
-    # Total number of images
-    total_images = len(image_files)
-
-    # TAMURA FEATURES RESULT
-    color_moment_name = get_feature_name()
-    color_moment_features = []
-
-    # IMAGE NAME
-    image_name = []
-
-    for image_file in tqdm(image_files, desc="GLCM Extraction", unit="file", ncols=100):
-        filename = os.path.basename(image_file)[0:-4]
-        image_name.append(filename)
-        
-        image_features = get_glcm(image_file)
-        color_moment_features.append(image_features)
-    
-    # Create Data Frame
-    df = pd.DataFrame(color_moment_features, columns=color_moment_name)
-    df.insert(0, 'Image', image_name)
-    
-    # Write CSV
-    csv_file = '../data/fcm/glcm.csv'
-    df.to_csv(csv_file, index=False)
-
-# main()
 

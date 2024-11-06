@@ -3,11 +3,6 @@ from scipy.stats import skew
 
 from PIL import Image
 import numpy as np
-import matplotlib.pyplot as plt
-import glob
-from tqdm import tqdm
-import os
-import pandas as pd
 
 def get_yuv_color_moment_features(image_path):
     image = Image.open(image_path)
@@ -50,37 +45,3 @@ def get_yuv_color_moment_features(image_path):
 
 def get_feature_name():
     return ['mean_y', 'mean_u', 'mean_v', 'std_y', 'std_u', 'std_v', 'skew_y', 'skew_u', 'skew_v',]
-
-def main(): 
-    # Image Folder Path
-    folder_path = "../segmented_image/try"
-
-    # Array Of Image
-    image_files = glob.glob(os.path.join(folder_path, '*'))
-
-    # Total number of images
-    total_images = len(image_files)
-
-    # TAMURA FEATURES RESULT
-    color_moment_name = get_feature_name()
-    color_moment_features = []
-
-    # IMAGE NAME
-    image_name = []
-
-    for image_file in tqdm(image_files, desc="Color Moment Extraction", unit="file", ncols=100):
-        filename = os.path.basename(image_file)[0:-4]
-        image_name.append(filename)
-        
-        image_features = get_yuv_color_moment_features(image_file)
-        color_moment_features.append(image_features)
-    
-    # Create Data Frame
-    df = pd.DataFrame(color_moment_features, columns=color_moment_name)
-    df.insert(0, 'Image', image_name)
-    
-    # Write CSV
-    csv_file = '../try/1.csv'
-    df.to_csv(csv_file, index=False)
-
-# main()
