@@ -28,7 +28,7 @@ def cerviscanModel(image_path, image_output):
     output_path = os.path.join(f'{image_output}', f"{os.path.basename(image_path)[:-4]}_segmented.jpg")
     plt.imsave(output_path, segmented_image, cmap="gray")
     
-    features = get_cerviscan_features(f'./{os.path.basename(image_path)[:-4]}_segmented.jpg')
+    features = get_cerviscan_features(f'./{image_output}/{os.path.basename(image_path)[:-4]}_segmented.jpg')
     
     model = pickle.load(open('./xgb_best', 'rb'))
     result = model.predict(features)
